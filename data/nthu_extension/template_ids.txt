@@ -1,0 +1,60 @@
+﻿The number of templates is 40
+
+Antonym
+	1: "[A] is an antonym of [B]。"
+AtLocation
+	2: "[A] 位在 [B]。"
+	3: "[A] 位在 [B] 裡。"
+	4: "[A] 位在 [B] 外。"
+	5: "[A] 位在 [B] 上面。"
+	6: "[A] 位在 [B] 下面。"
+	7: "可以在 [B] 找到 [A]。"
+CapableOf
+	8: "[A] 會 [B]。"
+Causes
+	9: "因為 [A] 所以 [B]。"
+	10: "[A] 會令人 [B]。"
+	11: "[A] 會引發 [B]。"
+	12: "[A] 會帶來 [B]。"
+	13: "[A] 後會 [B]。"
+CausesDesire
+	14: "[A] 會令人想要 [B]。"
+	15: "[A] 的時候會想要 [B]。"
+Desires
+	16: "[A] 想要 [B]。"
+	17: "[A] 喜歡 [B]。"
+HasFirstSubevent
+	18: "[A] 時，要優先 [B]。"
+HasProperty
+	19: "[A] 是 [B] 的。"
+HasSubevent
+	20: "[A] 的時候會 [B]。"
+	21: "在 [A] 會 [B]。"
+Have
+	22: "[A] 擁有 [B]。"
+IsA
+	23: "[A] 是一種 [B]。"
+MadeOf
+	24: "[A] 可用 [B] 製成。"
+	25: "[A] 可以做成 [B]。"
+	26: "[A] 可用 [B] 組成。"
+	27: "[A] 的原料是 [B]。"
+MayUse
+	28: "[A] 的時候會用到 [B]。"
+MotivatedByGoal
+	29: "[A] 是為了 [B]。"
+	30: "想要 [B] 的時候會 [A]。"
+	31: "想要有 [B] 應該要 [A]。"
+NotDesires
+	32: "[A] 懼怕 [B]。"
+	33: "[A] 痛恨 [B]。"
+	34: "[A] 厭惡 [B]。"
+	35: "[A] 的時候，懼怕 [B]。"
+	36: "[A] 的時候，痛恨 [B]。"
+	37: "[A] 的時候，厭惡 [B]。"
+PartOf
+	38: "[A] 是 [B] 的一小部分。"
+SymbolOf
+	39: "[A] 代表 [B]。"
+Synonym
+	40: "[A] is a synonym of [B]。"

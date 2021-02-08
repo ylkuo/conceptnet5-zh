@@ -1,0 +1,8 @@
+concept.txt:ConceptNet裡的concept
+concept_degree.txt:每個concept的fanout有幾個
+	
+ConceptNet_data_cleaning.pdf, ConceptNet_data_cleaning_each_relation.pdf, ConceptNet_data_cleaning_result.pdf:
+如何修改擴增ConceptNet及修改後的統計相關資料
+
+ConceptNet_relations_detailed_information.pdf: 說明每個relation該放哪些型態的詞
+ConceptNet_relations_explanations_and_examples.pdf: relation解釋及例子

@@ -1,0 +1,107 @@
+﻿Downside of ConceptNet:
+1.missing commonsense knowledge links
+2.non-uniform distribution
+3.ambiguity
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ConceptNet Data Cleaning:
+Modification
+	Explicit:
+		Typos:中研院錯字更正系統 及 逐一校對
+		Revert assertions which are in reverse order
+		inappropriate relations
+		Redundant words
+		統一relation的方向性
+		Concept in Start or End field in different relations has different parts-of-speech(秀出桌面那張Chinese ConceptNet information.png)
+			e.g., HasSubevent:[公園]的時候會[慢跑] → 在[公園]會[慢跑]
+		Different SurfaceTexts in a relation have corresponding parts-of-speech and situations(秀出桌面那張Chinese ConceptNet information.png)
+			[遊戲] 會帶來 [徹夜不眠] → [遊戲] 會令人 [徹夜不眠]
+			[鑽石] 的時候會想要 [咬] → [鑽石] 會令人想要 [咬]
+
+	Implicit (主要是增加concept degree):
+		Concept Unification
+			unify variants: 統一 菸-煙、折-摺、溼-濕等
+			統一用詞: 念書-唸書 and 打呵欠-打哈欠 and [抹 乳液] and [塗 乳液] → [擦 乳液]
+			去除部份字首、字尾修飾詞(e.g., 很, 非常, 了, 的)
+			segmented words in reverse order or have similar meaning, e.g., 統一 [作業很多] 及 [很多作業]
+			merge isolated assertions and low-degree concepts (low-degree: <5)
+				這兩種類型的concepts通常都是既有concept的一些變體，可能加了一些修飾詞或主被動關係
+				把這些concepts改寫成和他們最相關的其他concepts，這樣就不會浪費這些無法被存取到或是low-degree的concept
+				把相似的concept聚集在一起也可以使該類別的concept有更多不同面向的描述
+		Concept Abstraction
+			去除不重要的細節，保留核心語意, e.g., 第六小隊 -> 小隊
+		Decrease the Number of Segmented Words
+			．average word embedding常常會失去原意
+				賞 巴掌→打耳光，"賞"作單詞解釋常有"欣賞", "給予", "獎勵"的意思
+				
+				如果把[返回 家鄉]拆開來看，分別找最接近的詞
+				"返回"找到的詞都是類似"離開"、"前往"、"抵達"這類的詞
+				"家鄉"找到的詞都是"故鄉"、"老家"、"南部"這種詞
+				如果把他們的word embedding和在一起取平均
+				得到的詞都是"返回"和"家鄉"他們類似的詞
+				但如果改寫成"返鄉"，他相似的詞是"回老家"、"探親"、"春節"、"連假"
+				可以很明顯的知道average word embedding僅僅是把詞單純結合在一起，沒有其他衍生的意思了
+				所以我們盡量降低segmented words的數量，來讓word embedding能夠完整表達出原來的意思
+			
+			[蓋上 被子] → [蓋上被子] (x) → [蓋上子] (x) → [蓋被子]
+			聽 廣播 -> 聽廣播, 搜尋vocabulary table ->收聽廣播 (o)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Deletion
+	Duplicate
+	Some simplified Chinese concepts
+	Unreasonable and meaningless data
+	Offensive concepts
+	Some data in ConceptNet are not precise, but not wrong technically, e.g., "AtLocation": [桌子] 位在 [宇宙] 下面。
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ConceptNet Expansion:
+	Antonyms
+		HasProperty: 如果A有B這個性質，他可能有含有B反義的性質, e.g., "[產品]是[昂貴]的" → "[產品]是[便宜]的"
+		Desires and NotDesires: 如果A Desires B，則A may NotDesires B, e.g., "[總統]厭惡[敗選]" → "[總統]想要[勝選]", "[女人]想要[減肥]" → "[女人]懼怕[發胖]".
+	Synonyms
+		．ConceptNet, Chinese WordNet, MOE revised dictionary
+		．要用synonym擴增的前提是synonyms彼此之間可以互相替代，稱為absolute synonyms，但這種組合非常的少
+		所以我用的是plesionym (near-synonym)，然後去掉某些情況
+		包含:
+			disambiguate，盡量讓一字一義，留下最common的那一類
+			single character word
+			如果某個分類有多種語意，留下最common的那一類
+			Word frequency < 130 are excluded.
+			different parts-of-speech
+		．Manually:
+			find similar concepts by word embedding
+			Add them to my synonym dictionary if they are not existed.
+	手動新增資料到"CapableOf", "Desires", "Have" and "NotDesires"，增加可以行使動作的assertion
+	平衡common concepts在各個relation的degree
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+Notes:
+1.Dataset information and /a, /r, /zh are not included. 
+2.All the weight fields are 1.0.
+3.IDs are unique
+4.SurfaceText有經過大量修改，如果有需要可以改回去
+5.There are no simplified Chinese concepts, some of them are converted to traditional Chinese and some of them are deleted.
+	6.excluded relations:["DerivedFrom", "DistinctFrom", "EtymologicallyDerivedFrom", "EtymologicallyRelatedTo", "FormOf", "RelatedTo", "SimilarTo"]
+7.可能可以merge的項目:"Synonym"，ConceptNet5的Synonym有122478個，我之前下載時只有6714個，我擴增到14985個
+8.修改relation名稱:
+	UsedFor -> MayUse(relation方向相反)
+	HasA -> Have
+		HasA在稍早的ConceptNet沒有這個relation
+		所以我是從AtLocation裡面分離出來的 A 有 B
+		我重新看了一次最新的中文ConceptNet，發現HasA裡面仍然有許多AtLocation及Hava分不清及錯誤的情況，建議覆蓋
+9.Remove subject like 你 (you) in SurfaceText to avoid specific pronoun (for my research purpose)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Original ConceptNet:
+/a/[/r/HasSubevent/,/c/zh/比賽開始/,/c/zh/跑了/]
+/r/HasSubevent
+/c/zh/比賽開始
+/c/zh/跑了
+{"dataset":
+"/d/conceptnet/4/zh", 
+"license": "cc:by/4.0",
+"sources":[{"activity": "/s/activity/ptt/petgame",
+	"contributor": "/s/contributor/petgame/pet_27984"}],
+"surfaceEnd": "跑了",
+"surfaceStart": "比賽開始",
+"surfaceText": "*[[跑了]] 可能代表 [[比賽開始]] 。",
+"weight": 1.0}
+
