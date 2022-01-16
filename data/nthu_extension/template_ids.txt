@@ -53,7 +53,7 @@ NotDesires
 	36: "[A] 的時候，痛恨 [B]。"
 	37: "[A] 的時候，厭惡 [B]。"
 PartOf
-	38: "[A] 是 [B] 的一小部分。"
+	38: "[A] 是 [B] 的一部分。"
 SymbolOf
 	39: "[A] 代表 [B]。"
 Synonym
